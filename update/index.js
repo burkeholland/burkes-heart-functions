@@ -1,4 +1,3 @@
-var axios = require('axios');
 var LIFX = require('lifx-http-api');
 
 let client = new LIFX({

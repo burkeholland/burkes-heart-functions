@@ -1,0 +1,25 @@
+{
+  "name": "heart-bulb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lifx-http-api": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burkeholland/heart-bulb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/burkeholland/heart-bulb/issues"
+  },
+  "homepage": "https://github.com/burkeholland/heart-bulb#readme"
+}
