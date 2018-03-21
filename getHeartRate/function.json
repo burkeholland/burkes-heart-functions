@@ -13,11 +13,12 @@
       "name": "res"
     },
     {
-      "tableName": "BPM",
-      "connection": "AzureWebJobsStorage",
       "name": "inputBPM",
       "type": "table",
-      "direction": "out"
+      "tableName": "BPM",
+      "partitionKey": "BPM",
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
     }
   ]
 }
