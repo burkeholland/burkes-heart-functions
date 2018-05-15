@@ -16,6 +16,7 @@ module.exports = function(context, req) {
       }
     ];
 
+    // Save
     context.bindings.inputBPM = {
       PartitionKey: 'BPM',
       RowKey: new Date().getTime(),
@@ -24,7 +25,7 @@ module.exports = function(context, req) {
     };
 
     client
-      .setState('all', { color: `hue:${hue}` })
+      .setState('all', { color: `hue:${hue > 0 ? hue : 0}` })
       .then(results => {
         context.res = {
           // status: 200, /* Defaults to 200 */
