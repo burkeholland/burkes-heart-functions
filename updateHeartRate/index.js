@@ -8,11 +8,19 @@ module.exports = function(context, req) {
   if (req.query.bpm) {
     let hue = 160 - req.query.bpm;
 
+    // send a message to SignalR Service
+    context.bindings.heartMessage = [
+      {
+        target: 'heartMessage',
+        arguments: [{ bpm: req.query.bpm, timestamp: new Date() }]
+      }
+    ];
+
     context.bindings.inputBPM = {
       PartitionKey: 'BPM',
       RowKey: new Date().getTime(),
-      BPM: req.query.bpm,
-      TimeStamp: new Date()
+      bpm: req.query.bpm,
+      timestamp: new Date()
     };
 
     client

@@ -13,12 +13,17 @@
       "name": "res"
     },
     {
+      "tableName": "BPM",
+      "connection": "AzureWebJobsStorage",
       "name": "inputBPM",
       "type": "table",
-      "tableName": "BPM",
-      "partitionKey": "BPM",
-      "connection": "AzureWebJobsStorage",
-      "direction": "in"
+      "direction": "out"
+    },
+    {
+      "type": "signalR",
+      "name": "heartMessage",
+      "hubName": "hearthub",
+      "direction": "out"
     }
   ]
 }

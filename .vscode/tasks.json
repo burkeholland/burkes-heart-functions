@@ -5,7 +5,7 @@
       "label": "Run Functions Host",
       "identifier": "runFunctionsHost",
       "type": "shell",
-      "command": "func host start",
+      "command": "func host start --cors http://localhost:8080",
       "isBackground": true,
       "presentation": {
         "reveal": "always"
