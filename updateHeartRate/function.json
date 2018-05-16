@@ -1,29 +1,33 @@
 {
-  "disabled": false,
-  "bindings": [
-    {
-      "authLevel": "anonymous",
-      "type": "httpTrigger",
-      "direction": "in",
-      "name": "req"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "res"
-    },
-    {
-      "tableName": "BPM",
-      "connection": "AzureWebJobsStorage",
-      "name": "inputBPM",
-      "type": "table",
-      "direction": "out"
-    },
-    {
-      "type": "signalR",
-      "name": "heartMessage",
-      "hubName": "hearthub",
-      "direction": "out"
-    }
-  ]
+ "disabled": false,
+ "bindings": [
+  {
+   "authLevel": "anonymous",
+   "type": "httpTrigger",
+   "direction": "in",
+   "name": "req"
+  },
+  {
+   "type": "http",
+   "direction": "out",
+   "name": "res"
+  },
+  {
+   "tableName": "BPM",
+   "connection": "AzureWebJobsStorage",
+   "name": "inputBPM",
+   "type": "table",
+   "direction": "out"
+  },
+  {
+   "type": "signalR",
+   "name": "heartMessage",
+   "hubName": "hearthub",
+   "direction": "out"
+  }
+ ],
+ "_originalEntryPoint": false,
+ "_originalScriptFile": "index.js",
+ "scriptFile": "../.funcpack/index.js",
+ "entryPoint": "updateHeartRate"
 }
