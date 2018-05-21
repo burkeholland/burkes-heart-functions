@@ -5,8 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
-    "lifx-http-api": "^1.0.3",
-    "mongodb": "^3.0.4"
+    "lifx-http-api": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
