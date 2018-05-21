@@ -6,46 +6,80 @@ let client = new LIFX({
 
 module.exports = function(context, req) {
   if (req.query.bpm) {
-    let hue = 160 - req.query.bpm;
+    // bpm needs to be an integer or the hue
+    // calculations won't work correctly
+    let bpm = parseInt(req.query.bpm);
 
-    // send a message to SignalR Service
-    context.bindings.heartMessage = [
-      {
-        target: 'heartMessage',
-        arguments: [{ bpm: req.query.bpm, timestamp: new Date() }]
-      }
-    ];
+    // push the current bpm to the SignalR hub
+    pushMessage(context, 'heartMessage', bpm);
 
-    // Save
-    context.bindings.inputBPM = {
-      PartitionKey: 'BPM',
-      RowKey: new Date().getTime(),
-      bpm: req.query.bpm,
-      timestamp: new Date()
-    };
+    // store the current bpm in Azure Table Storage
+    storeBpm(context, bpm);
 
-    client
-      .setState('all', { color: `hue:${hue > 0 ? hue : 0}` })
+    // calculate the hue based on bpm
+    let hue = getHue(bpm);
+
+    // update the bulb color
+    updateLight(hue)
       .then(results => {
-        context.res = {
-          // status: 200, /* Defaults to 200 */
-          body: results
-        };
-
-        context.done();
+        send(context, results, 200);
       })
       .catch(err => {
-        handleError(context, err.message);
+        send(context, err.message, 400);
       });
   } else {
-    handleError(context, 'Please pass bpm parameter');
-    context.done();
+    send(context, 'Please pass bpm parameter', 400);
   }
 };
 
-function handleError(context, message) {
+function pushMessage(context, target, bpm) {
+  context.bindings.heartMessage = [
+    {
+      target: target,
+      arguments: [{ bpm: bpm, timestamp: new Date() }]
+    }
+  ];
+}
+
+function storeBpm(context, bpm) {
+  context.bindings.inputBPM = {
+    PartitionKey: 'BPM',
+    RowKey: new Date().getTime(),
+    bpm: bpm,
+    timestamp: new Date()
+  };
+}
+
+function getHue(bpm) {
+  let min = process.env.BPM_MIN;
+  let max = process.env.BPM_MAX;
+  let range = max - min;
+  let factor = 120 / range;
+
+  if (bpm < min) {
+    return 120;
+  }
+
+  if (bpm > max) {
+    return 0;
+  }
+
+  let hue = 120 - (bpm - min) * factor;
+
+  return hue;
+}
+
+function updateLight(hue) {
+  return client
+    .setState('all', { color: `hue:${hue}` })
+    .then(results => results);
+}
+
+function send(context, message, status) {
   context.res = {
-    status: 400,
+    status: status,
     body: message
   };
+
+  context.done();
 }
