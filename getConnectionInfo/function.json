@@ -1,34 +1,30 @@
 {
- "disabled": false,
- "bindings": [
-  {
-   "authLevel": "anonymous",
-   "type": "httpTrigger",
-   "direction": "in",
-   "name": "req"
-  },
-  {
-   "type": "http",
-   "direction": "out",
-   "name": "res"
-  },
-  {
-   "type": "signalRConnectionInfo",
-   "name": "connectionInfo",
-   "hubName": "heartHub",
-   "direction": "in"
-  },
-  {
-   "name": "inputBPM",
-   "type": "table",
-   "tableName": "BPM",
-   "partitionKey": "BPM",
-   "connection": "AzureWebJobsStorage",
-   "direction": "in"
-  }
- ],
- "_originalEntryPoint": false,
- "_originalScriptFile": "index.js",
- "scriptFile": "../.funcpack/index.js",
- "entryPoint": "getConnectionInfo"
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "signalRConnectionInfo",
+      "name": "connectionInfo",
+      "hubName": "heartHub",
+      "direction": "in"
+    },
+    {
+      "name": "inputBPM",
+      "type": "table",
+      "tableName": "BPM",
+      "partitionKey": "BPM",
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
+    }
+  ]
 }
